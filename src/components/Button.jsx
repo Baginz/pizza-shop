@@ -16,4 +16,4 @@ const Button = ({ onClick, className, outline, children }) => {
 export default Button;
 
 
-//className={`button ${props ? 'button--outline' : ''}`}
+//className={`button ${outline ? 'button--outline' : ''}`}
