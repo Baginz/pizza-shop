@@ -73,6 +73,6 @@ const pizzasSlice = createSlice({
     },
 });
 
-const {addPizza, removePizza} = pizzasSlice.actions;
+export const {addPizza, removePizza} = pizzasSlice.actions;
 
 export default pizzasSlice.reducer;

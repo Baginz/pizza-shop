@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const filtersSlice = createSlice({
-    name: 'pizzas',
+    name: 'filters',
     initialState: {
-        category: 0,
+        category: null,
         sortBy: 'popular'
     },
     reducers: {
@@ -18,6 +18,6 @@ const filtersSlice = createSlice({
     },
 });
 
-const {setSortBy, setCategory} = filtersSlice.actions;
+export const {setSortBy, setCategory} = filtersSlice.actions;
 
 export default filtersSlice.reducer; 

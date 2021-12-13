@@ -15,7 +15,7 @@ const Header = () => {
                             alt="Pizza logo"
                         />
                         <div>
-                            <h1>React Pizza</h1>
+                            <h1>KoKo Pizza</h1>
                             <p>самая вкусная пицца во вселенной</p>
                         </div>
                     </div>
