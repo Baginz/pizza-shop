@@ -3,6 +3,7 @@ import Categories from "../components/Categories";
 import PizzaBlock from '../components/PizzaBlock';
 import SortPopup from "../components/SortPopup";
 
+import {usePizzas} from "../hooks/usePizzas";
 import { useDispatch, useSelector } from "react-redux";
 import { setSortBy, setCategory } from "../redux/slices/filtersSlice";
 
@@ -14,7 +15,7 @@ const categoryNames = [
     "Закрытые",
 ];
 const sortIems = [
-    { name: 'популярности', type: 'popular', order: 'desc' },
+    { name: 'популярности', type: 'rating', order: 'desc' },
     { name: 'цене', type: 'price', order: 'desc' },
     { name: 'названию', type: 'name', order: 'asc' },
 ];
@@ -24,6 +25,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const { pizzas, status, error } = useSelector(state => state.pizzas);
     const { category, sortBy } = useSelector(state => state.filters);
+    const sortedAndCategoryPizzas = usePizzas(pizzas, category, sortBy);
 
     const onSelectCategory = (index) => {
         dispatch(setCategory(index));
@@ -49,7 +51,7 @@ const Home = () => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {pizzas && pizzas.map((obj) => (
+                {sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj) => (
                     <PizzaBlock key={obj.id}  {...obj} />
                 ))}
             </div>

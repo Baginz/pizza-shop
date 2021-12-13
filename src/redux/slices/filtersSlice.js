@@ -6,7 +6,7 @@ const filtersSlice = createSlice({
     name: 'filters',
     initialState: {
         category: null,
-        sortBy: 'popular'
+        sortBy: 'rating'
     },
     reducers: {
         setSortBy(state, action) {
