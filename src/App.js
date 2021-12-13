@@ -4,20 +4,22 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
-import PizzasService from "./API/PizzasService";
+import { useDispatch } from "react-redux";
+import { fetchPizzas } from "./redux/slices/pizzasSlice";
+
 
 function App() {
-    const [pizzas, setPizzas] = React.useState([])
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
-        PizzasService.getAll().then(response => {setPizzas(response.data.pizzas)})  
-    }, [])
+        dispatch(fetchPizzas())
+    }, [dispatch])
 
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<Home pizzas={pizzas}/>} />
-                <Route path="home" element={<Home pizzas={pizzas}/>} />
+                <Route index element={<Home />} />
+                <Route path="home" element={<Home />} />
                 <Route path="cart" element={<Cart />} />
             </Route>
         </Routes>

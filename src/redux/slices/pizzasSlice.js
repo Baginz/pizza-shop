@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import PizzasService from "../../API/PizzasService";
 
 export const fetchPizzas = createAsyncThunk(
     'pizzas/fetchPizzas',
     async function(_, {rejectWithValue}) {
         try {
-         
-            
+            const response = await PizzasService.getAll();
+            return response.data.pizzas;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -48,6 +49,9 @@ const pizzasSlice = createSlice({
         error: null,
     },
     reducers: {
+        setPizzas(state, action) {
+            state.pizzas = action.payload;
+        },
         addPizza(state, action) {
             state.pizzas.push(action.payload);
         },

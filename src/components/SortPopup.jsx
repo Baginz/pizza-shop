@@ -1,10 +1,10 @@
 import React from 'react'
 
-const SortPopup = ({items}) => {
+const SortPopup = ({ items }) => {
 
     const [visiblePopup, setVisiblePopup] = React.useState(false);
     const [activeItem, setActiveItem] = React.useState(0);
-    const activeLabel = items[activeItem];
+    const activeLabel = items[activeItem].name;
 
     const sortRef = React.useRef();
 
@@ -18,14 +18,14 @@ const SortPopup = ({items}) => {
         };
     }
 
-    const onClickItem = (index) =>{
+    const onClickItem = (index) => {
         setActiveItem(index);
         setVisiblePopup(false);
     }
 
     React.useEffect(() => {
         document.body.addEventListener('click', handleOutClick);
-        // return document.body.removeEventListener('click', handleOutClick );
+        return () => document.body.removeEventListener('click', handleOutClick);
     }, [])
 
     return (
@@ -49,12 +49,12 @@ const SortPopup = ({items}) => {
             {visiblePopup && <div className="sort__popup">
                 <ul>
                     {items &&
-                        items.map((name, index) => (
+                        items.map((obj, index) => (
                             <li
                                 className={activeItem === index ? 'active' : ''}
                                 onClick={() => onClickItem(index)}
-                                key={`${name}_${index}`}>
-                                {name}
+                                key={`${obj.type}_${index}`}>
+                                {obj.name}
                             </li>
                         ))}
                 </ul>
