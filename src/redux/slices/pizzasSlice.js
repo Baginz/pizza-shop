@@ -13,29 +13,6 @@ export const fetchPizzas = createAsyncThunk(
     }
 );
 
-export const deletePizza = createAsyncThunk(
-    'pizzas/deletePizza',
-    async function(id, {rejectWithValue, dispatch}) {
-        try {
-           
-
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
-export const addNewPizza = createAsyncThunk(
-    'pizzas/addNewPizza',
-    async function (text, {rejectWithValue, dispatch}) {
-        try {
-           
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
 const setError = (state, action) => {
     state.status = 'rejected';
     state.error = action.payload;
@@ -69,7 +46,6 @@ const pizzasSlice = createSlice({
             state.pizzas = action.payload;
         },
         [fetchPizzas.rejected]: setError,
-        [deletePizza.rejected]: setError,
     },
 });
 

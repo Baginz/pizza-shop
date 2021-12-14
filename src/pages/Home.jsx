@@ -26,6 +26,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const { pizzas, status, error } = useSelector(state => state.pizzas);
     const { category, sortBy } = useSelector(state => state.filters);
+    const { items } = useSelector(state => state.cart);
     const sortedAndCategoryPizzas = usePizzas(pizzas, category, sortBy);
 
     const onSelectCategory = (index) => {
@@ -52,12 +53,13 @@ const Home = () => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
+                {error && <h2>An error occured: {error}</h2>}
                 {status !== 'loading'
                     ? sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj) => (
-                        <PizzaBlock key={obj.id}  {...obj} />))
+                        <PizzaBlock key={obj.id} addedCount={items.filter(item => item.id === obj.id).length} {...obj} />))
                     : Array(12)
-                    .fill(0)
-                    .map((_, index) => <LoadingBlock key={index} />)
+                        .fill(0)
+                        .map((_, index) => <LoadingBlock key={index} />)
                 }
             </div>
         </div>
