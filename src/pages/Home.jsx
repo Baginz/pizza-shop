@@ -3,9 +3,10 @@ import Categories from "../components/Categories";
 import PizzaBlock from '../components/PizzaBlock';
 import SortPopup from "../components/SortPopup";
 
-import {usePizzas} from "../hooks/usePizzas";
+import { usePizzas } from "../hooks/usePizzas";
 import { useDispatch, useSelector } from "react-redux";
 import { setSortBy, setCategory } from "../redux/slices/filtersSlice";
+import LoadingBlock from '../components/LoadingBlock';
 
 const categoryNames = [
     "Мясные",
@@ -51,9 +52,13 @@ const Home = () => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj) => (
-                    <PizzaBlock key={obj.id}  {...obj} />
-                ))}
+                {status !== 'loading'
+                    ? sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj) => (
+                        <PizzaBlock key={obj.id}  {...obj} />))
+                    : Array(12)
+                    .fill(0)
+                    .map((_, index) => <LoadingBlock key={index} />)
+                }
             </div>
         </div>
     )
