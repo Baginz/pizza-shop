@@ -142,7 +142,7 @@ function Cart() {
               </span>
             </div>
             <div className="cart__bottom-buttons">
-              <a href="/" className="button button--outline button--add go-back-btn">
+              <div className="button button--outline button--add go-back-btn">
                 <svg
                   width="8"
                   height="14"
@@ -160,7 +160,7 @@ function Cart() {
                 <Link to="/">
                   <span>Вернуться назад</span>
                 </Link>
-              </a>
+              </div>
               <Button onClick={onClickOrder} className="pay-btn">
                 <span>Оплатить сейчас</span>
               </Button>
