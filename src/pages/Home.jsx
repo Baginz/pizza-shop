@@ -56,7 +56,7 @@ const Home = () => {
                 {error && <h2>An error occured: {error}</h2>}
                 {status !== 'loading'
                     ? sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj) => (
-                        <PizzaBlock key={obj.id} addedCount={items.filter(item => item.id === obj.id).length} {...obj} />))
+                        <PizzaBlock key={obj.id} addedCount={items[obj.id] && items[obj.id].items.length} {...obj} />))
                     : Array(12)
                         .fill(0)
                         .map((_, index) => <LoadingBlock key={index} />)

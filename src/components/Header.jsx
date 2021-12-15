@@ -6,7 +6,7 @@ import Button from './Button';
 
 const Header = () => {
 
-    const { items, totalPrice } = useSelector(state => state.cart);
+    const { items, totalPrice, totalCount } = useSelector(state => state.cart);
 
     return (
         <div className="header">
@@ -58,7 +58,7 @@ const Header = () => {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                            {items && <span>{items.length}</span>}
+                            {items && <span>{totalCount}</span>}
                         </Button>
                     </Link>
                 </div>
