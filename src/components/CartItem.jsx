@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Button from './Button';
 import { clearCart, deleteFromCart } from '../redux/slices/cartSlice'
 
-const CartItem = ({ id, name, type, size, totalPrice, totalCount, onMinus, onPlus }) => {
+const CartItem = ({ id, name, type, size, imageUrl }) => {
 
     const dispatch = useDispatch();
   const handleRemoveClick = () => {
@@ -11,11 +11,11 @@ const CartItem = ({ id, name, type, size, totalPrice, totalCount, onMinus, onPlu
   };
 
   const handlePlusItem = () => {
-    onPlus(id);
+    // onPlus(id);
   };
 
   const handleMinusItem = () => {
-    onMinus(id);
+    // onMinus(id);
   };
 
   return (
@@ -23,7 +23,7 @@ const CartItem = ({ id, name, type, size, totalPrice, totalCount, onMinus, onPlu
       <div className="cart__item-img">
         <img
           className="pizza-block__image"
-          src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+          src={imageUrl}
           alt="Pizza"
         />
       </div>
@@ -53,7 +53,7 @@ const CartItem = ({ id, name, type, size, totalPrice, totalCount, onMinus, onPlu
             />
           </svg>
         </div>
-        <b>{totalCount}</b>
+        <b>{0}</b>
         <div
           onClick={handlePlusItem}
           className="button button--outline button--circle cart__item-count-plus">
@@ -75,7 +75,7 @@ const CartItem = ({ id, name, type, size, totalPrice, totalCount, onMinus, onPlu
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{totalPrice} ₽</b>
+        <b>{0} ₽</b>
       </div>
       <div className="cart__item-remove">
         <Button onClick={handleRemoveClick} className="button--circle" outline>

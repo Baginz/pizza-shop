@@ -101,12 +101,12 @@ const Cart = () => {
                     <div className="content__items">
                         {items.map((obj) => (
                             <CartItem
-                                key={obj.id + Date.now()}
+                                key={obj.id + obj.type + obj.size}
                                 id={obj.id}
                                 name={obj.name}
                                 type={obj.type}
                                 size={obj.size}
-                               
+                                imageUrl={obj.imageUrl}
                             />
                         ))}
                     </div>

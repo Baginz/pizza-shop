@@ -14,7 +14,7 @@ const cartSlice = createSlice({
         },
         deleteFromCart(state, action) {
             state.items = state.items.filter((item) => item.id !== action.payload);
-            state.totalPrice = state.totalPrice - action.payload.price;
+            // state.totalPrice = state.totalPrice - action.payload.price;
         },
         clearCart(state, action) {
             state.items = [];
