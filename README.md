@@ -8,7 +8,7 @@ https://baginz.github.io/pizza-shop/
 
 ### `yarn start`
 
-### 
+## Dependencies
 ##### https://www.npmjs.com/package/react-redux
 ##### https://www.npmjs.com/package/@reduxjs/toolkit
 ##### https://www.npmjs.com/package/sass
