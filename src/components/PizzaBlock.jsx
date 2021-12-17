@@ -36,6 +36,8 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount, onCli
                 className="pizza-block__image"
                 src={imageUrl}
                 alt="Pizza"
+                width="260"
+                height="260"
             />
             <h4 className="pizza-block__title">
                 {name}
