@@ -6,6 +6,7 @@ import SortPopup from "../components/SortPopup";
 import { usePizzas } from "../hooks/usePizzas";
 import { useDispatch, useSelector } from "react-redux";
 import { setSortBy, setCategory } from "../redux/slices/filtersSlice";
+import {addToCart} from '../redux/slices/cartSlice'
 import LoadingBlock from '../components/LoadingBlock';
 
 const categoryNames = [
@@ -37,6 +38,10 @@ const Home = () => {
         dispatch(setSortBy(type));
     }
 
+    const handleAddPizzaToCart = (obj) => {
+        dispatch(addToCart(obj));
+      };
+
     return (
         <div className="container">
             <div className="content__top">
@@ -56,7 +61,11 @@ const Home = () => {
                 {error && <h2>An error occured: {error}</h2>}
                 {status !== 'loading'
                     ? sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj) => (
-                        <PizzaBlock key={obj.id} addedCount={items.filter(item => item.id === obj.id).length} {...obj} />))
+                        <PizzaBlock
+                            key={obj.id}
+                            addedCount={items[obj.id] && items[obj.id].items.length} {...obj}
+                            onClickAddPizza={handleAddPizzaToCart}
+                        />))
                     : Array(12)
                         .fill(0)
                         .map((_, index) => <LoadingBlock key={index} />)

@@ -3,12 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Button from './Button';
 
-import {addToCart} from '../redux/slices/cartSlice'
-import { useDispatch } from 'react-redux';
-
-const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount}) => {
-
-    const dispatch = useDispatch();
+const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount, onClickAddPizza}) => {
 
     const [activeType, setActiveType] = React.useState(types[0]);
     const [activeSize, setActiveSize] = React.useState(sizes[0]);
@@ -32,7 +27,7 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount}) => {
           size: activeSize,
           type: avilableTypes[activeType],
         };
-        dispatch(addToCart(obj));
+        onClickAddPizza(obj);
       };
 
     return (
@@ -41,6 +36,8 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount}) => {
                 className="pizza-block__image"
                 src={imageUrl}
                 alt="Pizza"
+                width="260"
+                height="260"
             />
             <h4 className="pizza-block__title">
                 {name}
@@ -81,7 +78,7 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount}) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    {addedCount !== 0 && <i>{addedCount}</i>}
+                    {addedCount && <i>{addedCount}</i>}
                     </Button>
             </div>
         </div>
