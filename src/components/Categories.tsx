@@ -1,8 +1,13 @@
 import React from 'react'
 
-const Categories = ({ activeCategory, items, onClickItem, }) => {
+type CategoriesProps = {
+  activeCategory: number | null,
+  items: string[],
+  onClickItem: (index: number | null) => void,
+}
+const Categories = ({ activeCategory, items, onClickItem }: CategoriesProps) => {
 
-  const onClickCategory = (index) => {
+  const onClickCategory = (index: number | null):void => {
     onClickItem(index);
   }
 

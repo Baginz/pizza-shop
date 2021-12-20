@@ -1,17 +1,28 @@
 import React from 'react';
 import Button from './Button';
 
+type CartItemProps = {
+  id: number,
+  name: string,
+  type: string,
+  size: number,
+  totalPrice: number,
+  totalCount: number,
+  onRemove: (id: number) => void,
+  onMinus: (id: number) => void,
+  onPlus: (id: number) => void,
+}
 
-const CartItem = ({ id, name, type, size, totalPrice, totalCount, onRemove, onMinus, onPlus }) => {
-  const handleRemoveClick = () => {
+const CartItem = ({ id, name, type, size, totalPrice, totalCount, onRemove, onMinus, onPlus }: CartItemProps) => {
+  const handleRemoveClick = ():void => {
     onRemove(id);
   };
 
-  const handlePlusItem = () => {
+  const handlePlusItem = ():void => {
     onPlus(id);
   };
 
-  const handleMinusItem = () => {
+  const handleMinusItem = ():void => {
     onMinus(id);
   };
 
