@@ -1,6 +1,7 @@
+ts migration
+
 # Deploy
 
-https://baginz.github.io/pizza-shop/
 
 ## Available Scripts
 

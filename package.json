@@ -1,6 +1,5 @@
 {
   "name": "pizza-shop",
-  "homepage": "https://baginz.github.io/pizza-shop/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

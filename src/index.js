@@ -9,7 +9,7 @@ import "./scss/app.scss";
 import App from "./App";
 
 ReactDOM.render(
-    <BrowserRouter basename='/pizza-shop'>
+    <BrowserRouter>
         <Provider store={store}>
             <App />
         </Provider>
