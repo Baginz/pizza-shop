@@ -1,4 +1,3 @@
-ts migration
 
 # Deploy
 
@@ -16,5 +15,9 @@ ts migration
 ##### https://www.npmjs.com/package/axios
 ##### https://www.npmjs.com/package/classnames
 ##### https://www.npmjs.com/package/prop-types
+
+### ts migration
+
+yarn add typescript @types/node @types/react @types/react-dom @types/jest
 
 
