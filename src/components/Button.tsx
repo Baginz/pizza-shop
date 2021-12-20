@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-const Button = ({ onClick, className, outline, children }) => {
+const Button:React.FC<{onClick: () => void, className: string, outline: boolean}> = ({ onClick, className, outline, children }) => {
     return (
       <button
         onClick={onClick}

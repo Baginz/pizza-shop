@@ -11,6 +11,7 @@ import { fetchPizzas } from "./redux/slices/pizzasSlice";
 function App() {
     const dispatch = useDispatch();
 
+
     React.useEffect(() => {
         dispatch(fetchPizzas())
     }, [dispatch])
