@@ -16,7 +16,7 @@ interface SortPopupProps {
 
 const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClickSortType }: SortPopupProps) {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
-  const sortRef = React.useRef<HTMLDivElement>();
+  const sortRef = React.useRef<HTMLDivElement>(null);
    // @ts-ignore: Unreachable code error 
   const activeLabel = items.find((obj: sortItemsObj) => obj.type === activeSortType).name;
 
@@ -49,7 +49,6 @@ const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClick
   }, []);
 
   return (
-     // @ts-ignore: Unreachable code error 
     <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
