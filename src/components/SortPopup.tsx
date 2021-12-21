@@ -1,16 +1,17 @@
 import React from 'react';
+import { IPizzas } from '../interfaces/interfaces';
 // import PropTypes from 'prop-types';
 
 type sortItemsObj = {
   name: string,
-  type: string,
+  type: keyof IPizzas,
   order: string,
 }
 
 interface SortPopupProps {
   items: sortItemsObj[],
   activeSortType: string,
-  onClickSortType: (type: string) => void,
+  onClickSortType: (type: keyof IPizzas) => void,
 }
 
 const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClickSortType }: SortPopupProps) {
@@ -31,7 +32,7 @@ const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClick
     }
   };
 
-  const onSelectItem = (type: string) => {
+  const onSelectItem = (type: keyof IPizzas) => {
     if (onClickSortType) {
       onClickSortType(type);
     }

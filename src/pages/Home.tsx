@@ -12,7 +12,7 @@ import { ICartPizzas, IPizzas } from '../interfaces/interfaces';
 
 type sortItemsObj = {
     name: string,
-    type: string,
+    type: keyof IPizzas,
     order: string,
 }
 
@@ -41,7 +41,7 @@ const Home:React.FC = () => {
         dispatch(setCategory(index));
     }
 
-    const onSelectSortType = (type: string) => {
+    const onSelectSortType = (type: keyof IPizzas) => {
         dispatch(setSortBy(type));
     }
 
