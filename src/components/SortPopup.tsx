@@ -1,34 +1,54 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClickSortType }) {
+type sortItemsObj = {
+  name: string,
+  type: string,
+  order: string,
+}
+
+interface SortPopupProps {
+  items: sortItemsObj[],
+  activeSortType: string,
+  onClickSortType: (type: string) => void,
+}
+
+const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClickSortType }: SortPopupProps) {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
-  const sortRef = React.useRef();
-  const activeLabel = items.find((obj) => obj.type === activeSortType).name;
+  const sortRef = React.useRef<HTMLDivElement>();
+   // @ts-ignore: Unreachable code error 
+  const activeLabel = items.find((obj: sortItemsObj) => obj.type === activeSortType).name;
 
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
   };
 
-  const handleOutsideClick = (event) => {
+  const handleOutsideClick = (event: React.MouseEvent<Element, MouseEvent>) => {
+    // @ts-ignore: Unreachable code error 
     const path = event.path || (event.composedPath && event.composedPath());
     if (!path.includes(sortRef.current)) {
       setVisiblePopup(false);
     }
   };
 
-  const onSelectItem = (index) => {
+  const onSelectItem = (type: string) => {
     if (onClickSortType) {
-      onClickSortType(index);
+      onClickSortType(type);
     }
     setVisiblePopup(false);
   };
 
   React.useEffect(() => {
+     // @ts-ignore: Unreachable code error 
     document.body.addEventListener('click', handleOutsideClick);
+    return () => {
+       // @ts-ignore: Unreachable code error 
+      document.body.removeEventListener('click', handleOutsideClick);
+  };
   }, []);
 
   return (
+     // @ts-ignore: Unreachable code error 
     <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
@@ -65,14 +85,14 @@ const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClick
   );
 });
 
-SortPopup.propTypes = {
-  activeSortType: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onClickSortType: PropTypes.func.isRequired,
-};
+// SortPopup.propTypes = {
+//   activeSortType: PropTypes.string.isRequired,
+//   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   onClickSortType: PropTypes.func.isRequired,
+// };
 
-SortPopup.defaultProps = {
-  items: [],
-};
+// SortPopup.defaultProps = {
+//   items: [],
+// };
 
 export default SortPopup;

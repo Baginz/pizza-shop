@@ -1,20 +1,31 @@
 import React from 'react'
 import classNames from 'classnames'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import Button from './Button';
+import { ICartPizzas } from '../interfaces/interfaces';
 
-const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount, onClickAddPizza}) => {
+interface PizzaBloCkProps{
+    id: number,
+    name: string,
+    imageUrl: string,
+    price: number,
+    types: number[],
+    sizes: number[],
+    addedCount: number,
+    onClickAddPizza: (obj: ICartPizzas) => void,
+}
+const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, addedCount, onClickAddPizza}: PizzaBloCkProps) => {
 
     const [activeType, setActiveType] = React.useState(types[0]);
     const [activeSize, setActiveSize] = React.useState(sizes[0]);
     const avilableTypes = ['тонкое', 'традиционное'];
     const avilableSizes = [26, 30, 40];
 
-    const onClickType = (index) => {
+    const onClickType = (index: number) => {
         setActiveType(index);
     }
 
-    const onClickSize = (index) => {
+    const onClickSize = (index: number) => {
         setActiveSize(index);
     }
 

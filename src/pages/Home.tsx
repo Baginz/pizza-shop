@@ -4,41 +4,48 @@ import PizzaBlock from '../components/PizzaBlock';
 import SortPopup from "../components/SortPopup";
 
 import { usePizzas } from "../hooks/usePizzas";
-import { useDispatch, useSelector } from "react-redux";
 import { setSortBy, setCategory } from "../redux/slices/filtersSlice";
 import {addToCart} from '../redux/slices/cartSlice'
 import LoadingBlock from '../components/LoadingBlock';
+import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { ICartPizzas, IPizzas } from '../interfaces/interfaces';
 
-const categoryNames = [
+type sortItemsObj = {
+    name: string,
+    type: string,
+    order: string,
+}
+
+const categoryNames: string[] = [
     "Мясные",
     "Вегетарианская",
     "Гриль",
     "Острые",
     "Закрытые",
 ];
-const sortIems = [
+const sortIems: sortItemsObj[] = [
     { name: 'популярности', type: 'rating', order: 'desc' },
     { name: 'цене', type: 'price', order: 'desc' },
     { name: 'названию', type: 'name', order: 'asc' },
 ];
 
 
-const Home = () => {
-    const dispatch = useDispatch();
-    const { pizzas, status, error } = useSelector(state => state.pizzas);
-    const { category, sortBy } = useSelector(state => state.filters);
-    const { items } = useSelector(state => state.cart);
+const Home:React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { pizzas, status, error } = useAppSelector(state => state.pizzas);
+    const { category, sortBy } = useAppSelector(state => state.filters);
+    const { items } = useAppSelector(state => state.cart);
     const sortedAndCategoryPizzas = usePizzas(pizzas, category, sortBy);
 
-    const onSelectCategory = (index) => {
+    const onSelectCategory = (index: number | null) => {
         dispatch(setCategory(index));
     }
 
-    const onSelectSortType = (type) => {
+    const onSelectSortType = (type: string) => {
         dispatch(setSortBy(type));
     }
 
-    const handleAddPizzaToCart = (obj) => {
+    const handleAddPizzaToCart = (obj: ICartPizzas) => {
         dispatch(addToCart(obj));
       };
 
@@ -60,7 +67,7 @@ const Home = () => {
             <div className="content__items">
                 {error && <h2>An error occured: {error}</h2>}
                 {status !== 'loading'
-                    ? sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj) => (
+                    ? sortedAndCategoryPizzas && sortedAndCategoryPizzas.map((obj: IPizzas) => (
                         <PizzaBlock
                             key={obj.id}
                             addedCount={items[obj.id] && items[obj.id].items.length} {...obj}

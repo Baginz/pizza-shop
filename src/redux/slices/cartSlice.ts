@@ -1,15 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ICartPizzas } from "../../interfaces/interfaces";
 
-const getTotalPrice = (arr) => arr.reduce((sum, obj) => obj.price + sum, 0);
+interface ICartObj {
+  [id: number]: {items?: ICartPizzas[], totalPrice?: number}
+}
 
-const _get = (obj, path) => {
+interface ICartState {
+  items: any ,
+  totalPrice: any,
+  totalCount: any,
+}
+
+const initialState: ICartState = {
+  items: {},
+  totalPrice: 0,
+  totalCount: 0,
+}
+
+const getTotalPrice = (arr: any) => arr.reduce((sum: number, obj: any) => obj.price + sum, 0);
+
+const _get = (obj: any, path: string) => {
     const [firstKey, ...keys] = path.split(".");
     return keys.reduce((val, key) => {
         return val[key];
     }, obj[firstKey]);
 };
 
-const getTotalSum = (obj, path) => {
+const getTotalSum = (obj: any, path: string) => {
     return Object.values(obj).reduce((sum, obj) => {
         const value = _get(obj, path);
         return sum + value;
@@ -18,13 +35,9 @@ const getTotalSum = (obj, path) => {
 
 const cartSlice = createSlice({
     name: "cart",
-    initialState: {
-        items: {},
-        totalPrice: 0,
-        totalCount: 0,
-    },
+    initialState,
     reducers: {
-        addToCart(state, action) {
+        addToCart(state, action: PayloadAction<ICartPizzas>) {
             const currentPizzaItems = !state.items[action.payload.id]
                 ? [action.payload]
                 : [...state.items[action.payload.id].items, action.payload];
@@ -47,7 +60,7 @@ const cartSlice = createSlice({
                 totalPrice,
             };
         },
-        deleteFromCart(state, action) {
+        deleteFromCart(state, action: PayloadAction<number>) {
             const newItems = {
                 ...state.items,
             };
@@ -61,7 +74,7 @@ const cartSlice = createSlice({
                 totalCount: state.totalCount - currentTotalCount,
             };
         },
-        plusCartItem(state, action) {
+        plusCartItem(state, action: PayloadAction<number>) {
             const newObjItems = [
               ...state.items[action.payload].items,
               state.items[action.payload].items[0],
@@ -84,7 +97,7 @@ const cartSlice = createSlice({
               totalPrice,
             };
           },
-        minusCartItem(state, action) {
+        minusCartItem(state, action: PayloadAction<number>) {
             const oldItems = state.items[action.payload].items;
             const newObjItems =
               oldItems.length > 1 ? state.items[action.payload].items.slice(1) : oldItems;
@@ -106,7 +119,7 @@ const cartSlice = createSlice({
               totalPrice,
             };
           },
-        clearCart(state, action) {
+        clearCart(state) {
             state.items = {};
             state.totalPrice = 0;
             state.totalCount = 0;

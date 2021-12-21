@@ -4,12 +4,12 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
-import { useDispatch } from "react-redux";
 import { fetchPizzas } from "./redux/slices/pizzasSlice";
+import { useAppDispatch } from "./hooks/useRedux";
 
 
 function App() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
 
     React.useEffect(() => {
