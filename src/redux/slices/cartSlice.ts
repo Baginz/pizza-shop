@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICartPizzas } from "../../interfaces/interfaces";
 
+//переделать тут все нормально без эни и иммутабельности
 interface ICartObj {
-  [id: number]: {items?: ICartPizzas[], totalPrice?: number}
+  [id: string]: {items: ICartPizzas[], totalPrice: number}
 }
 
 interface ICartState {
-  items: any ,
-  totalPrice: any,
-  totalCount: any,
+  items: ICartObj ,
+  totalPrice: number,
+  totalCount: number,
 }
 
 const initialState: ICartState = {
@@ -27,8 +28,8 @@ const _get = (obj: any, path: string) => {
 };
 
 const getTotalSum = (obj: any, path: string) => {
-    return Object.values(obj).reduce((sum, obj) => {
-        const value = _get(obj, path);
+    return Object.values(obj).reduce((sum: number, obj: any) => {
+        const value: number = _get(obj, path);
         return sum + value;
     }, 0);
 };
@@ -38,18 +39,21 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action: PayloadAction<ICartPizzas>) {
+     
             const currentPizzaItems = !state.items[action.payload.id]
                 ? [action.payload]
                 : [...state.items[action.payload.id].items, action.payload];
 
-            const newItems = {
-                ...state.items,
-                [action.payload.id]: {
-                    items: currentPizzaItems,
-                    totalPrice: getTotalPrice(currentPizzaItems),
-                },
-            };
+                const newItems = {
+                  ...state.items,
+                  [action.payload.id]: {
+                      items: currentPizzaItems,
+                      totalPrice: getTotalPrice(currentPizzaItems),
+                  },
+              };
 
+            // state.totalCount = getTotalSum(newItems, "items.length");
+            // state.totalPrice = getTotalSum(newItems, "totalPrice");
             const totalCount = getTotalSum(newItems, "items.length");
             const totalPrice = getTotalSum(newItems, "totalPrice");
 
