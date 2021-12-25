@@ -12,7 +12,7 @@ function Cart(){
   const dispatch = useAppDispatch();
   const { totalPrice, totalCount, items } = useAppSelector(state => state.cart);
 
-  const addedPizzas = Object.keys(items).map((key) => {
+  const addedPizzas = Object.keys(items).map((key: string) => {
     return items[key].items[0];
   });
 
