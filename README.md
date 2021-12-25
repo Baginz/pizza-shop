@@ -1,6 +1,7 @@
 
 # Deploy
 
+https://baginz.github.io/pizza-shop/
 
 ## Available Scripts
 
@@ -15,6 +16,7 @@
 ##### https://www.npmjs.com/package/axios
 ##### https://www.npmjs.com/package/classnames
 ##### https://www.npmjs.com/package/prop-types
+##### https://www.npmjs.com/package/gh-pages
 
 ### ts migration
 
