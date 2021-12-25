@@ -3,22 +3,23 @@ import { ICartPizzas } from "../../interfaces/interfaces";
 
 //переделать тут все нормально без эни и иммутабельности
 interface ICartObj {
-  [id: string]: {items: ICartPizzas[], totalPrice: number}
+    [id: string]: { items: ICartPizzas[]; totalPrice: number };
 }
 
 interface ICartState {
-  items: ICartObj ,
-  totalPrice: number,
-  totalCount: number,
+    items: ICartObj;
+    totalPrice: number;
+    totalCount: number;
 }
 
 const initialState: ICartState = {
-  items: {},
-  totalPrice: 0,
-  totalCount: 0,
-}
+    items: {},
+    totalPrice: 0,
+    totalCount: 0,
+};
 
-const getTotalPrice = (arr: any) => arr.reduce((sum: number, obj: any) => obj.price + sum, 0);
+const getTotalPrice = (arr: ICartPizzas[]) =>
+    arr.reduce((sum: number, obj: ICartPizzas) => obj.price + sum, 0);
 
 const _get = (obj: any, path: string) => {
     const [firstKey, ...keys] = path.split(".");
@@ -27,7 +28,7 @@ const _get = (obj: any, path: string) => {
     }, obj[firstKey]);
 };
 
-const getTotalSum = (obj: any, path: string) => {
+const getTotalSum = (obj: ICartObj, path: string) => {
     return Object.values(obj).reduce((sum: number, obj: any) => {
         const value: number = _get(obj, path);
         return sum + value;
@@ -39,90 +40,48 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action: PayloadAction<ICartPizzas>) {
-     
             const currentPizzaItems = !state.items[action.payload.id]
                 ? [action.payload]
                 : [...state.items[action.payload.id].items, action.payload];
 
-                const newItems = {
-                  ...state.items,
-                  [action.payload.id]: {
-                      items: currentPizzaItems,
-                      totalPrice: getTotalPrice(currentPizzaItems),
-                  },
-              };
-
-            // state.totalCount = getTotalSum(newItems, "items.length");
-            // state.totalPrice = getTotalSum(newItems, "totalPrice");
-            const totalCount = getTotalSum(newItems, "items.length");
-            const totalPrice = getTotalSum(newItems, "totalPrice");
-
-            return {
-                ...state,
-                items: newItems,
-                totalCount,
-                totalPrice,
+            state.items[action.payload.id] = {
+                items: currentPizzaItems,
+                totalPrice: getTotalPrice(currentPizzaItems),
             };
+            state.totalCount = getTotalSum(state.items, "items.length");
+            state.totalPrice = getTotalSum(state.items, "totalPrice");
         },
         deleteFromCart(state, action: PayloadAction<number>) {
-            const newItems = {
-                ...state.items,
-            };
-            const currentTotalPrice = newItems[action.payload].totalPrice;
-            const currentTotalCount = newItems[action.payload].items.length;
-            delete newItems[action.payload];
-            return {
-                ...state,
-                items: newItems,
-                totalPrice: state.totalPrice - currentTotalPrice,
-                totalCount: state.totalCount - currentTotalCount,
-            };
+            delete state.items[action.payload];
+            state.totalCount = getTotalSum(state.items, "items.length");
+            state.totalPrice = getTotalSum(state.items, "totalPrice");
         },
         plusCartItem(state, action: PayloadAction<number>) {
             const newObjItems = [
-              ...state.items[action.payload].items,
-              state.items[action.payload].items[0],
+                ...state.items[action.payload].items,
+                state.items[action.payload].items[0],
             ];
-            const newItems = {
-              ...state.items,
-              [action.payload]: {
+
+            state.items[action.payload] = {
                 items: newObjItems,
                 totalPrice: getTotalPrice(newObjItems),
-              },
             };
-      
-            const totalCount = getTotalSum(newItems, 'items.length');
-            const totalPrice = getTotalSum(newItems, 'totalPrice');
-      
-            return {
-              ...state,
-              items: newItems,
-              totalCount,
-              totalPrice,
-            };
-          },
+            state.totalCount = getTotalSum(state.items, "items.length");
+            state.totalPrice = getTotalSum(state.items, "totalPrice");
+        },
         minusCartItem(state, action: PayloadAction<number>) {
-            const oldItems = state.items[action.payload].items;
             const newObjItems =
-              oldItems.length > 1 ? state.items[action.payload].items.slice(1) : oldItems;
-            const newItems = {
-              ...state.items,
-              [action.payload]: {
+                state.items[action.payload].items.length > 1
+                    ? state.items[action.payload].items.slice(1)
+                    : state.items[action.payload].items;
+
+            state.items[action.payload] = {
                 items: newObjItems,
                 totalPrice: getTotalPrice(newObjItems),
-              },
             };
-      
-            const totalCount = getTotalSum(newItems, 'items.length');
-            const totalPrice = getTotalSum(newItems, 'totalPrice');
-      
-            return {
-              ...state,
-              items: newItems,
-              totalCount,
-              totalPrice,
-            };
-          },
+            state.totalCount = getTotalSum(state.items, "items.length");
+            state.totalPrice = getTotalSum(state.items, "totalPrice");
+        },
         clearCart(state) {
             state.items = {};
             state.totalPrice = 0;
@@ -131,6 +90,12 @@ const cartSlice = createSlice({
     },
 });
 
-export const { addToCart, deleteFromCart, plusCartItem, minusCartItem, clearCart } = cartSlice.actions;
+export const {
+    addToCart,
+    deleteFromCart,
+    plusCartItem,
+    minusCartItem,
+    clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
