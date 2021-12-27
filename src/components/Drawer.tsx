@@ -47,8 +47,8 @@ function Drawer() {
     };
 
     return (
-        <div className={`overlay ${overlayVisible ? "overlayVisible" : ""}`}>
-            <div className="drawer">
+        <div onClick={onClickBack} className={`overlay ${overlayVisible ? "overlayVisible" : ""}`}>
+            <div onClick={(e) => e.stopPropagation()} className="drawer">
                 {totalCount ? (
                     <div className="cart">
                         <div className="cart__top">
