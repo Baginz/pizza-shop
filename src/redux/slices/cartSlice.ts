@@ -10,12 +10,14 @@ interface ICartState {
     items: ICartObj;
     totalPrice: number;
     totalCount: number;
+    overlayVisible: boolean;
 }
 
 const initialState: ICartState = {
     items: {},
     totalPrice: 0,
     totalCount: 0,
+    overlayVisible: false,
 };
 
 const getTotalPrice = (arr: ICartPizzas[]) =>
@@ -87,6 +89,9 @@ const cartSlice = createSlice({
             state.totalPrice = 0;
             state.totalCount = 0;
         },
+        swapOverlayVisible(state) {
+            state.overlayVisible = !state.overlayVisible;
+        },
     },
 });
 
@@ -96,6 +101,7 @@ export const {
     plusCartItem,
     minusCartItem,
     clearCart,
+    swapOverlayVisible,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

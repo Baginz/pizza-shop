@@ -1,16 +1,20 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Header from './Header'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Drawer from "./Drawer";
+import Header from "./Header";
 
-const Layout:React.FC = () => {
+const Layout: React.FC = () => {
     return (
-        <div className="wrapper">
-            <Header />
-            <div className="content">
-                <Outlet />
+        <>
+            <Drawer />
+            <div className="wrapper">
+                <Header />
+                <div className="content">
+                    <Outlet />
+                </div>
             </div>
-        </div>
-    )
-}
+        </>
+    );
+};
 
 export default Layout;
